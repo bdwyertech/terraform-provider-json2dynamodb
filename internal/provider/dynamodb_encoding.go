@@ -2,6 +2,7 @@ package provider
 
 import (
 	"fmt"
+	"sort"
 
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb/types"
 	smithyjson "github.com/aws/smithy-go/encoding/json"
@@ -11,7 +12,13 @@ func SerializeAttributeMap(v map[string]types.AttributeValue) (jsonBytes []byte,
 	value := smithyjson.NewEncoder()
 	object := value.Object()
 
-	for key := range v {
+	keys := make([]string, 0, len(v))
+	for k := range v {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+
+	for _, key := range keys {
 		om := object.Key(key)
 		if vv := v[key]; vv == nil {
 			continue

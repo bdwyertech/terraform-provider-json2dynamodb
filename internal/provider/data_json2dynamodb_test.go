@@ -33,7 +33,7 @@ output "ddbjson" {
 }
 `
 
-var basicExpectedOutput = `{"default_attributes":{"M":{"wildfly":{"M":{"config":{"M":{"abc":{"N":"123"}}}}}}},"description":{"S":"Brian's Test Environment"},"name":{"S":"briansenvtest"},"cookbook_versions":{"M":{"wildfly":{"S":"> 0.0.0"}}}}`
+var basicExpectedOutput = `{"cookbook_versions":{"M":{"wildfly":{"S":"> 0.0.0"}}},"default_attributes":{"M":{"wildfly":{"M":{"config":{"M":{"abc":{"N":"123"}}}}}}},"description":{"S":"Brian's Test Environment"},"name":{"S":"briansenvtest"}}`
 
 func TestDataSource_basic(t *testing.T) {
 	resource.UnitTest(t, resource.TestCase{
