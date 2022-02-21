@@ -9,6 +9,7 @@ import (
 	"github.com/hashicorp/go-cty/cty"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/structure"
 )
 
 func data() *schema.Resource {
@@ -22,6 +23,15 @@ func data() *schema.Resource {
 				Description: "JSON String",
 				Type:        schema.TypeString,
 				Required:    true,
+				StateFunc: func(v interface{}) string {
+					json, _ := structure.NormalizeJsonString(v)
+					return json
+				},
+				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+					newJson, _ := structure.NormalizeJsonString(new)
+					oldJson, _ := structure.NormalizeJsonString(old)
+					return newJson == oldJson
+				},
 			},
 
 			"result": {
