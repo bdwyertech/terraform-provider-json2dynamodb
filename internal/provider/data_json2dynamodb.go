@@ -92,7 +92,7 @@ func dataRead(ctx context.Context, d *schema.ResourceData, meta interface{}) dia
 				{
 					Severity:      diag.Error,
 					Summary:       "JSON Spec Validation Failure",
-					Detail:        fmt.Sprintf("Error: %s", err),
+					Detail:        fmt.Sprint(err),
 					AttributePath: cty.GetAttrPath("json"),
 				},
 			}
@@ -104,7 +104,7 @@ func dataRead(ctx context.Context, d *schema.ResourceData, meta interface{}) dia
 		return diag.Diagnostics{
 			{
 				Severity: diag.Error,
-				Summary:  "JSON Handling Failed",
+				Summary:  "DynamoDB JSON Marshalling Failed",
 				Detail: "The data source received an unexpected error while attempting to transform the JSON into DynamoDB Attribute Values." +
 					fmt.Sprintf("\n\nError: %s", err),
 				AttributePath: cty.GetAttrPath("json"),
@@ -116,7 +116,7 @@ func dataRead(ctx context.Context, d *schema.ResourceData, meta interface{}) dia
 		return diag.Diagnostics{
 			{
 				Severity: diag.Error,
-				Summary:  "JSON Handling Failed",
+				Summary:  "DynamoDB JSON Serialization Failed",
 				Detail: "The data source received an unexpected error while attempting to transform the DynamoDB Attribute Values into DynamoDB JSON Format." +
 					fmt.Sprintf("\n\nError: %s", err),
 				AttributePath: cty.GetAttrPath("json"),
