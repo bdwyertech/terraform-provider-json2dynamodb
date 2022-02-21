@@ -1,3 +1,11 @@
+terraform {
+  required_providers {
+    json2dynamodb = {
+      source = "bdwyertech/json2dynamodb"
+    }
+  }
+}
+
 data "json2dynamodb" "test" {
   json = jsonencode(
     {
