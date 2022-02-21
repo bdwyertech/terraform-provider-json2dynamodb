@@ -26,6 +26,29 @@ data "json2dynamodb" "test" {
 			  }
         }
     )
+
+	spec = jsonencode(
+		{
+			properties = {
+				name = {
+					type = "string"
+					pattern = "^[A-Za-z]+$"
+					minLength = 1
+				}
+			}
+			
+			patternProperties = {
+				"address-[0-9]+" = {
+					type = "string"
+					pattern = "^[\\s|a-z]+$"
+				}
+			}
+			required = [
+				"name"
+			]
+			// additionalProperties = false
+		}
+	)
 }
 
 output "ddbjson" {
