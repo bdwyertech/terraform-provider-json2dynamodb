@@ -60,7 +60,8 @@ var basicExpectedOutput = `{"cookbook_versions":{"M":{"wildfly":{"S":"> 0.0.0"}}
 
 func TestDataSource_basic(t *testing.T) {
 	resource.UnitTest(t, resource.TestCase{
-		Providers: testProviders,
+		PreCheck:          func() { testAccPreCheck(t) },
+		ProviderFactories: providerFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testDataSourceConfig_basic,
