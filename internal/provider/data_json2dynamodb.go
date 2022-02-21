@@ -126,5 +126,6 @@ func dataRead(ctx context.Context, d *schema.ResourceData, meta interface{}) dia
 
 	d.Set("result", string(jsonBytes))
 
+	d.SetId("-")
 	return nil
 }
