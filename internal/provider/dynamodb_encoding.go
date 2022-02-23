@@ -23,7 +23,7 @@ func SerializeAttributeMap(v map[string]types.AttributeValue) (jsonBytes []byte,
 	}
 	object.Close()
 
-	var j json.RawMessage
+	var j interface{}
 	err = json.Unmarshal(value.Bytes(), &j)
 	if err != nil {
 		return
