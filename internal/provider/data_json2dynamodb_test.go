@@ -17,6 +17,8 @@ data "json2dynamodb" "test" {
 			  cookbook_versions = {
 				  "wildfly" = "> 0.0.0"
 			  }
+			  json_class = "Chef::Environment"
+			  chef_type = "environment"
 			  default_attributes = {
 				  wildfly = {
 					  config = {
