@@ -56,7 +56,7 @@ output "ddbjson" {
 }
 `
 
-var basicExpectedOutput = `{"cookbook_versions":{"M":{"wildfly":{"S":"> 0.0.0"}}},"default_attributes":{"M":{"wildfly":{"M":{"config":{"M":{"abc":{"N":"123"}}}}}}},"description":{"S":"Brian's Test Environment"},"name":{"S":"briansenvtest"}}`
+var basicExpectedOutput = `{"chef_type":{"S":"environment"},"cookbook_versions":{"M":{"wildfly":{"S":"\u003e 0.0.0"}}},"default_attributes":{"M":{"wildfly":{"M":{"config":{"M":{"abc":{"N":"123"}}}}}}},"description":{"S":"Brian's Test Environment"},"json_class":{"S":"Chef::Environment"},"name":{"S":"briansenvtest"}}`
 
 func TestDataSource_basic(t *testing.T) {
 	resource.UnitTest(t, resource.TestCase{

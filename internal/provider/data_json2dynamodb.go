@@ -76,7 +76,7 @@ func dataRead(ctx context.Context, d *schema.ResourceData, meta interface{}) dia
 
 	if specJson := d.Get("spec").(string); specJson != "" {
 		schema := new(spec.Schema)
-		if err := json.Unmarshal([]byte(specJson), schema); err != nil {
+		if err := schema.UnmarshalJSON([]byte(specJson)); err != nil {
 			return diag.Diagnostics{
 				{
 					Severity: diag.Error,
@@ -87,6 +87,7 @@ func dataRead(ctx context.Context, d *schema.ResourceData, meta interface{}) dia
 				},
 			}
 		}
+
 		if err := validate.AgainstSchema(schema, jInt, strfmt.Default); err != nil {
 			return diag.Diagnostics{
 				{
