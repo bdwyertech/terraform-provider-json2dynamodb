@@ -36,12 +36,6 @@ github.com/bgentry/speakeasy
 github.com/davecgh/go-spew/spew
 # github.com/fatih/color v1.7.0
 github.com/fatih/color
-# github.com/getkin/kin-openapi v0.92.0
-## explicit
-github.com/getkin/kin-openapi/jsoninfo
-github.com/getkin/kin-openapi/openapi3
-# github.com/ghodss/yaml v1.0.0
-github.com/ghodss/yaml
 # github.com/go-openapi/analysis v0.21.2
 github.com/go-openapi/analysis
 github.com/go-openapi/analysis/internal/debug
