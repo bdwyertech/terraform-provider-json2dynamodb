@@ -17,15 +17,15 @@ JSON into DynamoDB JSON format
 
 ### Required
 
-- **json** (String) JSON String
+- `json` (String) JSON String
 
 ### Optional
 
-- **id** (String) The ID of this resource.
-- **spec** (String) OpenAPI Schema specification in JSON format to validate the JSON against.
+- `id` (String) The ID of this resource.
+- `spec` (String) OpenAPI Schema specification in JSON format to validate the JSON against.
 
 ### Read-Only
 
-- **result** (String) JSON rendered as DynamoDB JSON
+- `result` (String) JSON rendered as DynamoDB JSON
 
 
