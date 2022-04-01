@@ -1,3 +1,19 @@
+# v1.8.4 (2022-03-31)
+
+* **Documentation**: Fixes documentation typos in Number type's helper methods
+
+# v1.8.3 (2022-03-30)
+
+* **Dependency Update**: Updated to the latest SDK module versions
+
+# v1.8.2 (2022-03-24)
+
+* **Dependency Update**: Updated to the latest SDK module versions
+
+# v1.8.1 (2022-03-23)
+
+* **Dependency Update**: Updated to the latest SDK module versions
+
 # v1.8.0 (2022-03-08)
 
 * **Feature**: Updated `github.com/aws/smithy-go` to latest version
