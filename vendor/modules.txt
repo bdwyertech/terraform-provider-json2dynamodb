@@ -19,12 +19,12 @@ github.com/asaskevich/govalidator
 # github.com/aws/aws-sdk-go-v2/feature/dynamodb/attributevalue v1.8.0
 ## explicit
 github.com/aws/aws-sdk-go-v2/feature/dynamodb/attributevalue
-# github.com/aws/aws-sdk-go-v2/service/dynamodb v1.15.0
+# github.com/aws/aws-sdk-go-v2/service/dynamodb v1.15.9
 ## explicit
 github.com/aws/aws-sdk-go-v2/service/dynamodb/types
 # github.com/aws/aws-sdk-go-v2/service/dynamodbstreams v1.13.0
 github.com/aws/aws-sdk-go-v2/service/dynamodbstreams/types
-# github.com/aws/smithy-go v1.11.1
+# github.com/aws/smithy-go v1.12.0
 ## explicit
 github.com/aws/smithy-go
 github.com/aws/smithy-go/document
@@ -72,7 +72,7 @@ github.com/golang/protobuf/ptypes/any
 github.com/golang/protobuf/ptypes/duration
 github.com/golang/protobuf/ptypes/empty
 github.com/golang/protobuf/ptypes/timestamp
-# github.com/google/go-cmp v0.5.7
+# github.com/google/go-cmp v0.5.8
 github.com/google/go-cmp/cmp
 github.com/google/go-cmp/cmp/internal/diff
 github.com/google/go-cmp/cmp/internal/flags
