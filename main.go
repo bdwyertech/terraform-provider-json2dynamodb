@@ -1,9 +1,7 @@
 package main
 
 import (
-	"context"
 	"flag"
-	"log"
 
 	"github.com/bdwyertech/terraform-provider-json2dynamodb/internal/provider"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/plugin"
@@ -25,20 +23,13 @@ var (
 )
 
 func main() {
-	var debugMode bool
-
-	flag.BoolVar(&debugMode, "debug", false, "set to true to run the provider with support for debuggers like delve")
-	flag.Parse()
-
-	opts := &plugin.ServeOpts{ProviderFunc: provider.New(version)}
-
-	if debugMode {
-		err := plugin.Debug(context.Background(), "registry.terraform.io/bdwyertech/json2dynamodb", opts)
-		if err != nil {
-			log.Fatal(err.Error())
-		}
-		return
+	opts := &plugin.ServeOpts{
+		ProviderAddr: "registry.terraform.io/bdwyertech/json2dynamodb",
+		ProviderFunc: provider.New(version),
 	}
+
+	flag.BoolVar(&opts.Debug, "debug", false, "set to true to run the provider with support for debuggers like delve")
+	flag.Parse()
 
 	plugin.Serve(opts)
 }
