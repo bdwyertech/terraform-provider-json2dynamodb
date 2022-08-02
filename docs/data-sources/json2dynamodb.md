@@ -21,11 +21,11 @@ JSON into DynamoDB JSON format
 
 ### Optional
 
-- `id` (String) The ID of this resource.
 - `spec` (String) OpenAPI Schema specification in JSON format to validate the JSON against.
 
 ### Read-Only
 
+- `id` (String) The ID of this resource.
 - `result` (String) JSON rendered as DynamoDB JSON
 
 
