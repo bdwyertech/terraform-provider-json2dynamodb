@@ -1,3 +1,43 @@
+# v1.10.8 (2022-12-15)
+
+* **Dependency Update**: Updated to the latest SDK module versions
+
+# v1.10.7 (2022-12-02)
+
+* **Dependency Update**: Updated to the latest SDK module versions
+
+# v1.10.6 (2022-11-22)
+
+* **Dependency Update**: Updated to the latest SDK module versions
+
+# v1.10.5 (2022-11-18)
+
+* **Dependency Update**: Updated to the latest SDK module versions
+
+# v1.10.4 (2022-11-16)
+
+* **Dependency Update**: Updated to the latest SDK module versions
+
+# v1.10.3 (2022-11-10)
+
+* **Dependency Update**: Updated to the latest SDK module versions
+
+# v1.10.2 (2022-10-24)
+
+* **Dependency Update**: Updated to the latest SDK module versions
+
+# v1.10.1 (2022-10-21)
+
+* **Dependency Update**: Updated to the latest SDK module versions
+
+# v1.10.0 (2022-09-26)
+
+* **Feature**: Adds a String method to UnixTime, so that when structs with this field get logged it prints a human readable time.
+
+# v1.9.19 (2022-09-20)
+
+* **Dependency Update**: Updated to the latest SDK module versions
+
 # v1.9.18 (2022-09-15)
 
 * **Dependency Update**: Updated to the latest SDK module versions
