@@ -4,8 +4,8 @@ go 1.19
 
 require (
 	github.com/aws/aws-sdk-go-v2/feature/dynamodb/attributevalue v1.9.18
-	github.com/aws/aws-sdk-go-v2/service/dynamodb v1.17.0
-	github.com/aws/smithy-go v1.13.3
+	github.com/aws/aws-sdk-go-v2/service/dynamodb v1.18.1
+	github.com/aws/smithy-go v1.13.5
 	github.com/go-openapi/spec v0.20.7
 	github.com/go-openapi/strfmt v0.21.3
 	github.com/go-openapi/validate v0.22.0
