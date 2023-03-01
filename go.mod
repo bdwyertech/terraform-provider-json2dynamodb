@@ -3,9 +3,9 @@ module github.com/bdwyertech/terraform-provider-json2dynamodb
 go 1.19
 
 require (
-	github.com/aws/aws-sdk-go-v2/feature/dynamodb/attributevalue v1.9.18
-	github.com/aws/aws-sdk-go-v2/service/dynamodb v1.17.0
-	github.com/aws/smithy-go v1.13.3
+	github.com/aws/aws-sdk-go-v2/feature/dynamodb/attributevalue v1.10.15
+	github.com/aws/aws-sdk-go-v2/service/dynamodb v1.18.5
+	github.com/aws/smithy-go v1.13.5
 	github.com/go-openapi/spec v0.20.7
 	github.com/go-openapi/strfmt v0.21.3
 	github.com/go-openapi/validate v0.22.0
@@ -22,7 +22,7 @@ require (
 	github.com/apparentlymart/go-textseg/v13 v13.0.0 // indirect
 	github.com/armon/go-radix v1.0.0 // indirect
 	github.com/asaskevich/govalidator v0.0.0-20200907205600-7a23bdc65eef // indirect
-	github.com/aws/aws-sdk-go-v2/service/dynamodbstreams v1.13.19 // indirect
+	github.com/aws/aws-sdk-go-v2/service/dynamodbstreams v1.14.5 // indirect
 	github.com/bgentry/speakeasy v0.1.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/fatih/color v1.13.0 // indirect
