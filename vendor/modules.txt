@@ -19,13 +19,13 @@ github.com/armon/go-radix
 # github.com/asaskevich/govalidator v0.0.0-20230301143203-a9d515a09cc2
 ## explicit; go 1.13
 github.com/asaskevich/govalidator
-# github.com/aws/aws-sdk-go-v2/feature/dynamodb/attributevalue v1.10.18
+# github.com/aws/aws-sdk-go-v2/feature/dynamodb/attributevalue v1.10.19
 ## explicit; go 1.15
 github.com/aws/aws-sdk-go-v2/feature/dynamodb/attributevalue
-# github.com/aws/aws-sdk-go-v2/service/dynamodb v1.19.1
+# github.com/aws/aws-sdk-go-v2/service/dynamodb v1.19.2
 ## explicit; go 1.15
 github.com/aws/aws-sdk-go-v2/service/dynamodb/types
-# github.com/aws/aws-sdk-go-v2/service/dynamodbstreams v1.14.6
+# github.com/aws/aws-sdk-go-v2/service/dynamodbstreams v1.14.7
 ## explicit; go 1.15
 github.com/aws/aws-sdk-go-v2/service/dynamodbstreams/types
 # github.com/aws/smithy-go v1.13.5
