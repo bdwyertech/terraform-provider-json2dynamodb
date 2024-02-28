@@ -27,5 +27,3 @@ JSON into DynamoDB JSON format
 
 - `id` (String) The ID of this resource.
 - `result` (String) JSON rendered as DynamoDB JSON
-
-

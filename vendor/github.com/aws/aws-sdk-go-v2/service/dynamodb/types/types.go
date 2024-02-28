@@ -487,6 +487,10 @@ type BatchStatementError struct {
 	// The error code associated with the failed PartiQL batch statement.
 	Code BatchStatementErrorCodeEnum
 
+	// The item which caused the condition check to fail. This will be set if
+	// ReturnValuesOnConditionCheckFailure is specified as ALL_OLD .
+	Item map[string]AttributeValue
+
 	// The error message associated with the PartiQL batch response.
 	Message *string
 
@@ -506,6 +510,13 @@ type BatchStatementRequest struct {
 
 	// The parameters associated with a PartiQL statement in the batch request.
 	Parameters []AttributeValue
+
+	// An optional parameter that returns the item attributes for a PartiQL batch
+	// request operation that failed a condition check. There is no additional cost
+	// associated with requesting a return value aside from the small network and
+	// processing overhead of receiving a larger response. No read capacity units are
+	// consumed.
+	ReturnValuesOnConditionCheckFailure ReturnValuesOnConditionCheckFailure
 
 	noSmithyDocumentSerde
 }
@@ -964,6 +975,16 @@ type DeleteRequest struct {
 	noSmithyDocumentSerde
 }
 
+// Enables setting the configuration for Kinesis Streaming.
+type EnableKinesisStreamingConfiguration struct {
+
+	// Toggle for the precision of Kinesis data stream timestamp. The values are
+	// either MILLISECOND or MICROSECOND .
+	ApproximateCreationDateTimePrecision ApproximateCreationDateTimePrecision
+
+	noSmithyDocumentSerde
+}
+
 // An endpoint information details.
 type Endpoint struct {
 
@@ -1162,11 +1183,18 @@ type ExportDescription struct {
 	// Point in time from which table data was exported.
 	ExportTime *time.Time
 
+	// The type of export that was performed. Valid values are FULL_EXPORT or
+	// INCREMENTAL_EXPORT .
+	ExportType ExportType
+
 	// Status code for the result of the failed export.
 	FailureCode *string
 
 	// Export failure reason description.
 	FailureMessage *string
+
+	// Optional object containing the parameters specific to an incremental export.
+	IncrementalExportSpecification *IncrementalExportSpecification
 
 	// The number of items exported.
 	ItemCount *int64
@@ -1212,6 +1240,10 @@ type ExportSummary struct {
 
 	// Export can be in one of the following states: IN_PROGRESS, COMPLETED, or FAILED.
 	ExportStatus ExportStatus
+
+	// The type of export that was performed. Valid values are FULL_EXPORT or
+	// INCREMENTAL_EXPORT .
+	ExportType ExportType
 
 	noSmithyDocumentSerde
 }
@@ -1596,6 +1628,28 @@ type ImportTableDescription struct {
 	noSmithyDocumentSerde
 }
 
+// Optional object containing the parameters specific to an incremental export.
+type IncrementalExportSpecification struct {
+
+	// Time in the past which provides the inclusive start range for the export
+	// table's data, counted in seconds from the start of the Unix epoch. The
+	// incremental export will reflect the table's state including and after this point
+	// in time.
+	ExportFromTime *time.Time
+
+	// Time in the past which provides the exclusive end range for the export table's
+	// data, counted in seconds from the start of the Unix epoch. The incremental
+	// export will reflect the table's state just prior to this point in time. If this
+	// is not provided, the latest time with data available will be used.
+	ExportToTime *time.Time
+
+	// The view type that was chosen for the export. Valid values are
+	// NEW_AND_OLD_IMAGES and NEW_IMAGES . The default value is NEW_AND_OLD_IMAGES .
+	ExportViewType ExportViewType
+
+	noSmithyDocumentSerde
+}
+
 // The format options for the data that was imported into the target table. There
 // is one value, CsvOption.
 type InputFormatOptions struct {
@@ -1731,6 +1785,10 @@ type KeySchemaElement struct {
 // Describes a Kinesis data stream destination.
 type KinesisDataStreamDestination struct {
 
+	// The precision of the Kinesis data stream timestamp. The values are either
+	// MILLISECOND or MICROSECOND .
+	ApproximateCreationDateTimePrecision ApproximateCreationDateTimePrecision
+
 	// The current status of replication.
 	DestinationStatus DestinationStatus
 
@@ -1842,16 +1900,23 @@ type LocalSecondaryIndexInfo struct {
 	noSmithyDocumentSerde
 }
 
-// Represents a PartiQL statment that uses parameters.
+// Represents a PartiQL statement that uses parameters.
 type ParameterizedStatement struct {
 
-	// A PartiQL statment that uses parameters.
+	// A PartiQL statement that uses parameters.
 	//
 	// This member is required.
 	Statement *string
 
 	// The parameter values.
 	Parameters []AttributeValue
+
+	// An optional parameter that returns the item attributes for a PartiQL
+	// ParameterizedStatement operation that failed a condition check. There is no
+	// additional cost associated with requesting a return value aside from the small
+	// network and processing overhead of receiving a larger response. No read capacity
+	// units are consumed.
+	ReturnValuesOnConditionCheckFailure ReturnValuesOnConditionCheckFailure
 
 	noSmithyDocumentSerde
 }
@@ -1917,7 +1982,7 @@ type ProvisionedThroughput struct {
 
 	// The maximum number of strongly consistent reads consumed per second before
 	// DynamoDB returns a ThrottlingException . For more information, see Specifying
-	// Read and Write Requirements (https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#ProvisionedThroughput)
+	// Read and Write Requirements (https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughput.html)
 	// in the Amazon DynamoDB Developer Guide. If read/write capacity mode is
 	// PAY_PER_REQUEST the value is set to 0.
 	//
@@ -1926,7 +1991,7 @@ type ProvisionedThroughput struct {
 
 	// The maximum number of writes consumed per second before DynamoDB returns a
 	// ThrottlingException . For more information, see Specifying Read and Write
-	// Requirements (https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#ProvisionedThroughput)
+	// Requirements (https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughput.html)
 	// in the Amazon DynamoDB Developer Guide. If read/write capacity mode is
 	// PAY_PER_REQUEST the value is set to 0.
 	//
@@ -2939,7 +3004,7 @@ type Update struct {
 
 	// Use ReturnValuesOnConditionCheckFailure to get the item attributes if the Update
 	// condition fails. For ReturnValuesOnConditionCheckFailure , the valid values are:
-	// NONE, ALL_OLD, UPDATED_OLD, ALL_NEW, UPDATED_NEW.
+	// NONE and ALL_OLD.
 	ReturnValuesOnConditionCheckFailure ReturnValuesOnConditionCheckFailure
 
 	noSmithyDocumentSerde
@@ -2961,6 +3026,15 @@ type UpdateGlobalSecondaryIndexAction struct {
 	//
 	// This member is required.
 	ProvisionedThroughput *ProvisionedThroughput
+
+	noSmithyDocumentSerde
+}
+
+// Enables updating the configuration for Kinesis Streaming.
+type UpdateKinesisStreamingConfiguration struct {
+
+	// Enables updating the precision of Kinesis data stream timestamp.
+	ApproximateCreationDateTimePrecision ApproximateCreationDateTimePrecision
 
 	noSmithyDocumentSerde
 }
