@@ -1,3 +1,72 @@
+# v1.15.13 (2024-10-28)
+
+* **Dependency Update**: Updated to the latest SDK module versions
+
+# v1.15.12 (2024-10-08)
+
+* **Dependency Update**: Updated to the latest SDK module versions
+
+# v1.15.11 (2024-10-07)
+
+* **Dependency Update**: Updated to the latest SDK module versions
+
+# v1.15.10 (2024-10-04)
+
+* **Dependency Update**: Updated to the latest SDK module versions
+
+# v1.15.9 (2024-10-03)
+
+* **Dependency Update**: Updated to the latest SDK module versions
+
+# v1.15.8 (2024-09-27)
+
+* **Dependency Update**: Updated to the latest SDK module versions
+
+# v1.15.7 (2024-09-25)
+
+* **Dependency Update**: Updated to the latest SDK module versions
+
+# v1.15.6 (2024-09-23)
+
+* **Dependency Update**: Updated to the latest SDK module versions
+
+# v1.15.5 (2024-09-20)
+
+* **Dependency Update**: Updated to the latest SDK module versions
+
+# v1.15.4 (2024-09-17)
+
+* **Dependency Update**: Updated to the latest SDK module versions
+
+# v1.15.3 (2024-09-09)
+
+* **Dependency Update**: Updated to the latest SDK module versions
+
+# v1.15.2 (2024-09-04)
+
+* **Dependency Update**: Updated to the latest SDK module versions
+
+# v1.15.1 (2024-09-03)
+
+* **Dependency Update**: Updated to the latest SDK module versions
+
+# v1.15.0 (2024-08-26)
+
+* **Feature**: Add Encoder option to obey omitempty tag for NULL attribute values.
+
+# v1.14.12 (2024-08-22)
+
+* **Dependency Update**: Updated to the latest SDK module versions
+
+# v1.14.11 (2024-08-15)
+
+* **Dependency Update**: Bump minimum Go version to 1.21.
+* **Dependency Update**: Updated to the latest SDK module versions
+
+# v1.14.10 (2024-07-24)
+
+* **Dependency Update**: Updated to the latest SDK module versions
+
 # v1.14.9 (2024-07-10.2)
 
 * **Dependency Update**: Updated to the latest SDK module versions
