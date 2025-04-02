@@ -55,9 +55,10 @@ jobs:
       matrix:
         # list whatever Terraform versions here you would like to support
         terraform:
-          - '0.12.*'
-          - '0.13.*'
-          - '0.14.*'
+          # - '0.12.*'
+          # - '0.13.*'
+          # - '0.14.*'
+          # Protocol v5+ required
           - '0.15.*'
           - '1.0.*'
           - '1.1.*'
@@ -69,7 +70,9 @@ jobs:
           - '1.7.*'
           - '1.8.*'
           - '1.9.*'
-    steps:
+          - '1.10.*'
+          - '1.11.*'
+          steps:
       - name: Check out code into the Go module directory
         uses: actions/checkout@v4
 
