@@ -1,13 +1,3 @@
-# github.com/BurntSushi/toml v1.2.1
-## explicit; go 1.16
-# github.com/Kunde21/markdownfmt/v3 v3.1.0
-## explicit; go 1.18
-# github.com/Masterminds/goutils v1.1.1
-## explicit
-# github.com/Masterminds/semver/v3 v3.2.1
-## explicit; go 1.18
-# github.com/Masterminds/sprig/v3 v3.2.3
-## explicit; go 1.13
 # github.com/ProtonMail/go-crypto v1.1.3
 ## explicit; go 1.17
 github.com/ProtonMail/go-crypto/bitcurves
@@ -38,8 +28,6 @@ github.com/agext/levenshtein
 # github.com/apparentlymart/go-textseg/v15 v15.0.0
 ## explicit; go 1.16
 github.com/apparentlymart/go-textseg/v15/textseg
-# github.com/armon/go-radix v1.0.0
-## explicit
 # github.com/asaskevich/govalidator v0.0.0-20230301143203-a9d515a09cc2
 ## explicit; go 1.13
 github.com/asaskevich/govalidator
@@ -58,10 +46,6 @@ github.com/aws/smithy-go
 github.com/aws/smithy-go/document
 github.com/aws/smithy-go/encoding
 github.com/aws/smithy-go/encoding/json
-# github.com/bgentry/speakeasy v0.1.0
-## explicit
-# github.com/bmatcuk/doublestar/v4 v4.6.1
-## explicit; go 1.16
 # github.com/cloudflare/circl v1.3.7
 ## explicit; go 1.19
 github.com/cloudflare/circl/dh/x25519
@@ -130,8 +114,6 @@ github.com/google/go-cmp/cmp/internal/value
 # github.com/google/uuid v1.6.0
 ## explicit
 github.com/google/uuid
-# github.com/hashicorp/cli v1.1.6
-## explicit; go 1.20
 # github.com/hashicorp/errwrap v1.1.0
 ## explicit
 github.com/hashicorp/errwrap
@@ -202,8 +184,6 @@ github.com/hashicorp/terraform-exec/tfexec
 # github.com/hashicorp/terraform-json v0.24.0
 ## explicit; go 1.18
 github.com/hashicorp/terraform-json
-# github.com/hashicorp/terraform-plugin-docs v0.19.4
-## explicit; go 1.21
 # github.com/hashicorp/terraform-plugin-framework v1.14.1
 ## explicit; go 1.22.0
 github.com/hashicorp/terraform-plugin-framework/attr
@@ -318,10 +298,6 @@ github.com/hashicorp/terraform-svchost
 # github.com/hashicorp/yamux v0.1.2
 ## explicit; go 1.20
 github.com/hashicorp/yamux
-# github.com/huandu/xstrings v1.4.0
-## explicit; go 1.12
-# github.com/imdario/mergo v0.3.16
-## explicit; go 1.13
 # github.com/invopop/yaml v0.3.1
 ## explicit; go 1.14
 github.com/invopop/yaml
@@ -339,8 +315,6 @@ github.com/mattn/go-colorable
 # github.com/mattn/go-isatty v0.0.20
 ## explicit; go 1.15
 github.com/mattn/go-isatty
-# github.com/mattn/go-runewidth v0.0.9
-## explicit; go 1.9
 # github.com/mitchellh/copystructure v1.2.0
 ## explicit; go 1.15
 github.com/mitchellh/copystructure
@@ -368,12 +342,6 @@ github.com/oklog/ulid
 # github.com/perimeterx/marshmallow v1.1.5
 ## explicit; go 1.17
 github.com/perimeterx/marshmallow
-# github.com/posener/complete v1.2.3
-## explicit; go 1.13
-# github.com/shopspring/decimal v1.3.1
-## explicit; go 1.13
-# github.com/spf13/cast v1.6.0
-## explicit; go 1.19
 # github.com/vmihailenco/msgpack v4.0.4+incompatible
 ## explicit
 github.com/vmihailenco/msgpack
@@ -387,10 +355,6 @@ github.com/vmihailenco/msgpack/v5/msgpcode
 github.com/vmihailenco/tagparser/v2
 github.com/vmihailenco/tagparser/v2/internal
 github.com/vmihailenco/tagparser/v2/internal/parser
-# github.com/yuin/goldmark v1.7.1
-## explicit; go 1.19
-# github.com/yuin/goldmark-meta v1.1.0
-## explicit; go 1.17
 # github.com/zclconf/go-cty v1.16.2
 ## explicit; go 1.18
 github.com/zclconf/go-cty/cty
@@ -401,8 +365,6 @@ github.com/zclconf/go-cty/cty/function/stdlib
 github.com/zclconf/go-cty/cty/gocty
 github.com/zclconf/go-cty/cty/json
 github.com/zclconf/go-cty/cty/set
-# go.abhg.dev/goldmark/frontmatter v0.2.0
-## explicit; go 1.20
 # go.mongodb.org/mongo-driver v1.17.3
 ## explicit; go 1.18
 go.mongodb.org/mongo-driver/bson
@@ -419,8 +381,6 @@ golang.org/x/crypto/blake2b
 golang.org/x/crypto/cast5
 golang.org/x/crypto/hkdf
 golang.org/x/crypto/sha3
-# golang.org/x/exp v0.0.0-20230626212559-97b1e661b5df
-## explicit; go 1.20
 # golang.org/x/mod v0.24.0
 ## explicit; go 1.23.0
 golang.org/x/mod/internal/lazyregexp
@@ -594,8 +554,6 @@ google.golang.org/protobuf/types/known/anypb
 google.golang.org/protobuf/types/known/durationpb
 google.golang.org/protobuf/types/known/emptypb
 google.golang.org/protobuf/types/known/timestamppb
-# gopkg.in/yaml.v2 v2.3.0
-## explicit
 # gopkg.in/yaml.v3 v3.0.1
 ## explicit
 gopkg.in/yaml.v3
