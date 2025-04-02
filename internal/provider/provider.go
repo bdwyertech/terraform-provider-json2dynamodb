@@ -1,52 +1,97 @@
 package provider
 
 import (
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	"context"
+	"net/http"
+
+	"github.com/hashicorp/terraform-plugin-framework/datasource"
+	"github.com/hashicorp/terraform-plugin-framework/ephemeral"
+	"github.com/hashicorp/terraform-plugin-framework/function"
+	"github.com/hashicorp/terraform-plugin-framework/provider"
+	"github.com/hashicorp/terraform-plugin-framework/provider/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource"
 )
 
-func init() {
-	// Set descriptions to support markdown syntax, this will be used in document generation
-	// and the language server.
-	schema.DescriptionKind = schema.StringMarkdown
+// Ensure JSON2DynamoDBProvider satisfies various provider interfaces.
+var _ provider.Provider = &JSON2DynamoDBProvider{}
+var _ provider.ProviderWithFunctions = &JSON2DynamoDBProvider{}
+var _ provider.ProviderWithEphemeralResources = &JSON2DynamoDBProvider{}
 
-	// Customize the content of descriptions when output. For example you can add defaults on
-	// to the exported descriptions if present.
-	// schema.SchemaDescriptionBuilder = func(s *schema.Schema) string {
-	// 	desc := s.Description
-	// 	if s.Default != nil {
-	// 		desc += fmt.Sprintf(" Defaults to `%v`.", s.Default)
-	// 	}
-	// 	return strings.TrimSpace(desc)
-	// }
+// JSON2DynamoDBProvider defines the provider implementation.
+type JSON2DynamoDBProvider struct {
+	// version is set to the provider version on release, "dev" when the
+	// provider is built and ran locally, and "test" when running acceptance
+	// testing.
+	version string
 }
 
-func New(version string) func() *schema.Provider {
-	return func() *schema.Provider {
-		p := &schema.Provider{
-			DataSourcesMap: map[string]*schema.Resource{
-				"json2dynamodb": data(),
-			},
-			ResourcesMap: map[string]*schema.Resource{},
-		}
+// JSON2DynamoDBProviderModel describes the provider data model.
+type JSON2DynamoDBProviderModel struct {
+	// Endpoint types.String `tfsdk:"endpoint"`
+}
 
-		// p.ConfigureContextFunc = configure(version, p)
+func (p *JSON2DynamoDBProvider) Metadata(ctx context.Context, req provider.MetadataRequest, resp *provider.MetadataResponse) {
+	resp.TypeName = "json2dynamodb"
+	resp.Version = p.version
+}
 
-		return p
+func (p *JSON2DynamoDBProvider) Schema(ctx context.Context, req provider.SchemaRequest, resp *provider.SchemaResponse) {
+	resp.Schema = schema.Schema{
+		Attributes: map[string]schema.Attribute{
+			// "endpoint": schema.StringAttribute{
+			// 	MarkdownDescription: "Example provider attribute",
+			// 	Optional:            true,
+			// },
+		},
 	}
 }
 
-// type apiClient struct {
-// 	// Add whatever fields, client or connection info, etc. here
-// 	// you would need to setup to communicate with the upstream
-// 	// API.
-// }
-//
-// func configure(version string, p *schema.Provider) func(context.Context, *schema.ResourceData) (interface{}, diag.Diagnostics) {
-// 	return func(context.Context, *schema.ResourceData) (interface{}, diag.Diagnostics) {
-// 		// Setup a User-Agent for your API client (replace the provider name for yours):
-// 		// userAgent := p.UserAgent("terraform-provider-scaffolding", version)
-// 		// TODO: myClient.UserAgent = userAgent
-//
-// 		return &apiClient{}, nil
-// 	}
-// }
+func (p *JSON2DynamoDBProvider) Configure(ctx context.Context, req provider.ConfigureRequest, resp *provider.ConfigureResponse) {
+	var data JSON2DynamoDBProviderModel
+
+	resp.Diagnostics.Append(req.Config.Get(ctx, &data)...)
+
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	// Configuration values are now available.
+	// if data.Endpoint.IsNull() { /* ... */ }
+
+	// Example client configuration for data sources and resources
+	client := http.DefaultClient
+	resp.DataSourceData = client
+	resp.ResourceData = client
+}
+
+func (p *JSON2DynamoDBProvider) Resources(ctx context.Context) []func() resource.Resource {
+	return []func() resource.Resource{
+		// NewExampleResource,
+	}
+}
+
+func (p *JSON2DynamoDBProvider) EphemeralResources(ctx context.Context) []func() ephemeral.EphemeralResource {
+	return []func() ephemeral.EphemeralResource{
+		// NewExampleEphemeralResource,
+	}
+}
+
+func (p *JSON2DynamoDBProvider) DataSources(ctx context.Context) []func() datasource.DataSource {
+	return []func() datasource.DataSource{
+		NewJSON2DynamoDBDataSource,
+	}
+}
+
+func (p *JSON2DynamoDBProvider) Functions(ctx context.Context) []func() function.Function {
+	return []func() function.Function{
+		// NewExampleFunction,
+	}
+}
+
+func New(version string) func() provider.Provider {
+	return func() provider.Provider {
+		return &JSON2DynamoDBProvider{
+			version: version,
+		}
+	}
+}

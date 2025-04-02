@@ -9,124 +9,142 @@ import (
 	"github.com/go-openapi/spec"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/validate"
-	"github.com/hashicorp/go-cty/cty"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/structure"
+	"github.com/hashicorp/terraform-plugin-framework-jsontypes/jsontypes"
+	"github.com/hashicorp/terraform-plugin-framework/datasource"
+	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/path"
+	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
-func data() *schema.Resource {
-	return &schema.Resource{
-		Description: "JSON into DynamoDB JSON format",
+// Ensure provider defined types fully satisfy framework interfaces.
+var _ datasource.DataSource = &JSON2DynamoDBDataSource{}
 
-		ReadContext: dataRead,
+func NewJSON2DynamoDBDataSource() datasource.DataSource {
+	return &JSON2DynamoDBDataSource{}
+}
 
-		Schema: map[string]*schema.Schema{
-			"json": {
-				Description: "JSON String",
-				Type:        schema.TypeString,
-				Required:    true,
-				StateFunc: func(v interface{}) string {
-					json, _ := structure.NormalizeJsonString(v)
-					return json
-				},
-				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
-					newJson, _ := structure.NormalizeJsonString(new)
-					oldJson, _ := structure.NormalizeJsonString(old)
-					return newJson == oldJson
-				},
+// JSON2DynamoDBDataSource defines the data source implementation.
+type JSON2DynamoDBDataSource struct {
+	// client *http.Client
+}
+
+// JSON2DynamoDBDataSourceModel describes the data source data model.
+type JSON2DynamoDBDataSourceModel struct {
+	JSON   jsontypes.Normalized `tfsdk:"json"`
+	Spec   jsontypes.Normalized `tfsdk:"spec"`
+	Result jsontypes.Normalized `tfsdk:"result"`
+	Id     types.String         `tfsdk:"id"`
+}
+
+func (d *JSON2DynamoDBDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
+	resp.TypeName = req.ProviderTypeName // + "_data"
+}
+
+func (d *JSON2DynamoDBDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
+	resp.Schema = schema.Schema{
+		MarkdownDescription: "JSON into DynamoDB JSON format",
+
+		Attributes: map[string]schema.Attribute{
+			"json": schema.StringAttribute{
+				MarkdownDescription: "JSON String",
+				Required:            true,
+				CustomType:          jsontypes.NormalizedType{},
 			},
-
-			"spec": {
-				Description: "OpenAPI Schema specification in JSON format to validate the JSON against.",
-				Type:        schema.TypeString,
-				Optional:    true,
-				StateFunc: func(v interface{}) string {
-					json, _ := structure.NormalizeJsonString(v)
-					return json
-				},
-				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
-					newJson, _ := structure.NormalizeJsonString(new)
-					oldJson, _ := structure.NormalizeJsonString(old)
-					return newJson == oldJson
-				},
+			"spec": schema.StringAttribute{
+				MarkdownDescription: "OpenAPI Schema specification in JSON format to validate the JSON against.",
+				Optional:            true,
+				CustomType:          jsontypes.NormalizedType{},
 			},
-
-			"result": {
-				Description: "JSON rendered as DynamoDB JSON",
-				Type:        schema.TypeString,
-				Computed:    true,
+			"result": schema.StringAttribute{
+				MarkdownDescription: "JSON rendered as DynamoDB JSON",
+				Computed:            true,
+				CustomType:          jsontypes.NormalizedType{},
+			},
+			"id": schema.StringAttribute{
+				MarkdownDescription: "The ID of this data source",
+				Computed:            true,
 			},
 		},
 	}
 }
 
-func dataRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var jInt interface{}
-	if err := json.Unmarshal([]byte(d.Get("json").(string)), &jInt); err != nil {
-		return diag.Diagnostics{
-			{
-				Severity:      diag.Error,
-				Summary:       "JSON Handling Failed",
-				Detail:        "The data source received an unexpected error while attempting to parse the JSON.",
-				AttributePath: cty.GetAttrPath("json"),
-			},
-		}
+func (d *JSON2DynamoDBDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
+	// Prevent panic if the provider has not been configured.
+	// if req.ProviderData == nil {
+	// 	return
+	// }
+	// client, ok := req.ProviderData.(*http.Client)
+	//if !ok {
+	//	resp.Diagnostics.AddError(
+	//		"Unexpected Data Source Configure Type",
+	//		fmt.Sprintf("Expected *http.Client, got: %T. Please report this issue to the provider developers.", req.ProviderData),
+	//	)
+	//
+	//	return
+	//}
+
+	// d.client = client
+}
+
+func (d *JSON2DynamoDBDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
+	var data JSON2DynamoDBDataSourceModel
+
+	// Read Terraform configuration data into the model
+	resp.Diagnostics.Append(req.Config.Get(ctx, &data)...)
+
+	if resp.Diagnostics.HasError() {
+		return
 	}
 
-	if specJson := d.Get("spec").(string); specJson != "" {
+	var jInt interface{}
+	if err := json.Unmarshal([]byte(data.JSON.ValueString()), &jInt); err != nil {
+		resp.Diagnostics.AddAttributeError(
+			path.Root("json"),
+			"JSON Handling Failed",
+			"The data source received an unexpected error while attempting to parse the JSON.",
+		)
+		return
+	}
+
+	if data.Spec.ValueString() != "" {
 		schema := new(spec.Schema)
-		if err := schema.UnmarshalJSON([]byte(specJson)); err != nil {
-			return diag.Diagnostics{
-				{
-					Severity: diag.Error,
-					Summary:  "JSON Spec Handling Failed",
-					Detail: "The data source received an unexpected error while attempting to build the OpenAPI Specification." +
-						fmt.Sprintf("\n\nError: %s", err),
-					AttributePath: cty.GetAttrPath("spec"),
-				},
-			}
+		if err := schema.UnmarshalJSON([]byte(data.Spec.ValueString())); err != nil {
+			resp.Diagnostics.AddAttributeError(
+				path.Root("spec"),
+				"JSON Spec Handling Failed",
+				fmt.Sprintf("The data source received an unexpected error while attempting to build the OpenAPI Specification.\n\nError: %s", err),
+			)
+			return
 		}
 
 		if err := validate.AgainstSchema(schema, jInt, strfmt.Default); err != nil {
-			return diag.Diagnostics{
-				{
-					Severity:      diag.Error,
-					Summary:       "JSON Spec Validation Failure",
-					Detail:        fmt.Sprint(err),
-					AttributePath: cty.GetAttrPath("json"),
-				},
-			}
+			resp.Diagnostics.AddAttributeError(
+				path.Root("json"),
+				"JSON Spec Validation Failure",
+				fmt.Sprint(err),
+			)
+			return
 		}
 	}
-
 	avs, err := attributevalue.MarshalMap(&jInt)
 	if err != nil {
-		return diag.Diagnostics{
-			{
-				Severity: diag.Error,
-				Summary:  "DynamoDB JSON Marshalling Failed",
-				Detail: "The data source received an unexpected error while attempting to transform the JSON into DynamoDB Attribute Values." +
-					fmt.Sprintf("\n\nError: %s", err),
-				AttributePath: cty.GetAttrPath("json"),
-			},
-		}
+		resp.Diagnostics.AddAttributeError(
+			path.Root("json"),
+			"DynamoDB JSON Marshalling Failed",
+			fmt.Sprintf("The data source received an unexpected error while attempting to transform the JSON into DynamoDB Attribute Values.\n\nError: %s", err),
+		)
+		return
 	}
 	jsonBytes, err := SerializeAttributeMap(avs)
 	if err != nil {
-		return diag.Diagnostics{
-			{
-				Severity: diag.Error,
-				Summary:  "DynamoDB JSON Serialization Failed",
-				Detail: "The data source received an unexpected error while attempting to transform the DynamoDB Attribute Values into DynamoDB JSON Format." +
-					fmt.Sprintf("\n\nError: %s", err),
-				AttributePath: cty.GetAttrPath("json"),
-			},
-		}
+		resp.Diagnostics.AddAttributeError(
+			path.Root("json"),
+			"DynamoDB JSON Serialization Failed",
+			fmt.Sprintf("The data source received an unexpected error while attempting to transform the DynamoDB Attribute Values into DynamoDB JSON Format.\n\nError: %s", err),
+		)
+		return
 	}
-
-	d.Set("result", string(jsonBytes))
-
-	d.SetId("-")
-	return nil
+	data.Result = jsontypes.NewNormalizedValue(string(jsonBytes))
+	data.Id = types.StringValue("-")
+	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }

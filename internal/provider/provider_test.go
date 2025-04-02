@@ -3,22 +3,18 @@ package provider
 import (
 	"testing"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	"github.com/hashicorp/terraform-plugin-framework/providerserver"
+	"github.com/hashicorp/terraform-plugin-go/tfprotov6"
+	"github.com/hashicorp/terraform-plugin-testing/echoprovider"
 )
 
-// providerFactories are used to instantiate a provider during acceptance testing.
-// The factory function will be invoked for every Terraform CLI command executed
-// to create a provider server to which the CLI can reattach.
-var providerFactories = map[string]func() (*schema.Provider, error){
-	"json2dynamodb": func() (*schema.Provider, error) {
-		return New("dev")(), nil
-	},
-}
-
-func TestProvider(t *testing.T) {
-	if err := New("dev")().InternalValidate(); err != nil {
-		t.Fatalf("err: %s", err)
-	}
+// testAccProtoV6ProviderFactoriesWithEcho includes the echo provider alongside the scaffolding provider.
+// It allows for testing assertions on data returned by an ephemeral resource during Open.
+// The echoprovider is used to arrange tests by echoing ephemeral data into the Terraform state.
+// This lets the data be referenced in test assertions with state checks.
+var testAccProtoV6ProviderFactoriesWithEcho = map[string]func() (tfprotov6.ProviderServer, error){
+	"json2dynamodb": providerserver.NewProtocol6WithError(New("test")()),
+	"echo":          echoprovider.NewProviderServer(),
 }
 
 func testAccPreCheck(t *testing.T) {

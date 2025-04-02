@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
+	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+	"github.com/hashicorp/terraform-plugin-testing/terraform"
 )
 
 const testDataSourceConfig_basic = `
@@ -150,9 +150,9 @@ output "ddbjson" {
 var basicExpectedOutput = `{"chef_type":{"S":"environment"},"cookbook_versions":{"M":{"wildfly":{"S":"\u003e 0.0.0"}}},"default_attributes":{"M":{"wildfly":{"M":{"config":{"M":{"abc":{"N":"123"}}}}}}},"description":{"S":"Brian's Test Environment"},"json_class":{"S":"Chef::Environment"},"name":{"S":"briansenvtest"}}`
 
 func TestDataSource_basic(t *testing.T) {
-	resource.UnitTest(t, resource.TestCase{
-		PreCheck:          func() { testAccPreCheck(t) },
-		ProviderFactories: providerFactories,
+	resource.Test(t, resource.TestCase{
+		PreCheck:                 func() { testAccPreCheck(t) },
+		ProtoV6ProviderFactories: testAccProtoV6ProviderFactoriesWithEcho,
 		Steps: []resource.TestStep{
 			{
 				Config: testDataSourceConfig_basic,

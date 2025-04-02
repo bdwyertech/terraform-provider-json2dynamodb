@@ -1,10 +1,12 @@
 package main
 
 import (
+	"context"
 	"flag"
+	"log"
 
 	"github.com/bdwyertech/terraform-provider-json2dynamodb/internal/provider"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/plugin"
+	"github.com/hashicorp/terraform-plugin-framework/providerserver"
 )
 
 // Run "go generate" to format example terraform files and generate the docs for the registry/website
@@ -23,13 +25,14 @@ var (
 )
 
 func main() {
-	opts := &plugin.ServeOpts{
-		ProviderAddr: "registry.terraform.io/bdwyertech/json2dynamodb",
-		ProviderFunc: provider.New(version),
+	opts := providerserver.ServeOpts{
+		Address: "registry.terraform.io/bdwyertech/json2dynamodb",
 	}
 
 	flag.BoolVar(&opts.Debug, "debug", false, "set to true to run the provider with support for debuggers like delve")
 	flag.Parse()
 
-	plugin.Serve(opts)
+	if err := providerserver.Serve(context.Background(), provider.New(version), opts); err != nil {
+		log.Fatal(err.Error())
+	}
 }
