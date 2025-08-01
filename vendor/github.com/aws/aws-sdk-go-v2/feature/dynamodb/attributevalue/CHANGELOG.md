@@ -1,3 +1,65 @@
+# v1.20.1 (2025-07-30)
+
+* **Dependency Update**: Updated to the latest SDK module versions
+
+# v1.20.0 (2025-07-28)
+
+* **Feature**: Add support for HTTP interceptors.
+* **Dependency Update**: Updated to the latest SDK module versions
+
+# v1.19.6 (2025-07-19)
+
+* **Dependency Update**: Updated to the latest SDK module versions
+
+# v1.19.5 (2025-07-15)
+
+* **Dependency Update**: Updated to the latest SDK module versions
+
+# v1.19.4 (2025-06-30)
+
+* **Dependency Update**: Updated to the latest SDK module versions
+
+# v1.19.3 (2025-06-17)
+
+* **Dependency Update**: Update to smithy-go v1.22.4.
+* **Dependency Update**: Updated to the latest SDK module versions
+
+# v1.19.2 (2025-06-10)
+
+* **Dependency Update**: Updated to the latest SDK module versions
+
+# v1.19.1 (2025-06-06)
+
+* **Dependency Update**: Updated to the latest SDK module versions
+
+# v1.19.0 (2025-04-30)
+
+* **Feature**: added support for json to/from types.AttributeValue for DynamoDB and DynamoDB Streams
+
+# v1.18.14 (2025-04-28)
+
+* **Dependency Update**: Updated to the latest SDK module versions
+
+# v1.18.13 (2025-04-24)
+
+* **Dependency Update**: Updated to the latest SDK module versions
+
+# v1.18.12 (2025-04-11)
+
+* **Dependency Update**: Updated to the latest SDK module versions
+
+# v1.18.11 (2025-04-10)
+
+* **Dependency Update**: Updated to the latest SDK module versions
+
+# v1.18.10 (2025-04-09)
+
+* **Dependency Update**: Updated to the latest SDK module versions
+
+# v1.18.9 (2025-04-03)
+
+* **Dependency Update**: Updated to the latest SDK module versions
+
 # v1.18.8 (2025-03-13)
 
 * **Dependency Update**: Updated to the latest SDK module versions
