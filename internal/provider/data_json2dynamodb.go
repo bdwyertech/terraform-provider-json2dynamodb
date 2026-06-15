@@ -135,7 +135,7 @@ func (d *JSON2DynamoDBDataSource) Read(ctx context.Context, req datasource.ReadR
 		)
 		return
 	}
-	jsonBytes, err := SerializeAttributeMap(avs)
+	jsonBytes, err := attributevalue.MarshalMapJSON(avs)
 	if err != nil {
 		resp.Diagnostics.AddAttributeError(
 			path.Root("json"),
